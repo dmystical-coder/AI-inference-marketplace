@@ -24,7 +24,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Solana Inference Marketplace",
+  title: "Inference Marketplace",
   description: "Discover, pay for, and use AI inference services on Solana",
 };
 
