@@ -1,8 +1,10 @@
-# Solana X402 AI Marketplace
+# AI Inference Marketplace
 
 > On-demand AI inference powered by Solana payments and X402 micropayments
 
 A decentralized marketplace where AI providers offer inference services and users pay per request using Solana blockchain. Every transaction is verified on-chain, ensuring trustless, transparent AI commerce.
+
+**Key Innovation**: Trustless AI marketplace where every payment is verified on-chain, enabling autonomous AI agents to transact without intermediaries.
 
 ## 🎯 What It Does
 
@@ -71,9 +73,7 @@ npm run db:seed
 npm run dev
 ```
 
-Visit http://localhost:3002
-
-**See [HUGGINGFACE-SETUP.md](./HUGGINGFACE-SETUP.md) for detailed setup guide**
+Visit http://localhost:3000
 
 ### First Test Run
 
@@ -265,20 +265,6 @@ model EscrowTransaction {
 
 **Solution**: Ensure wallet extension installed and set to Devnet
 
-## 🎯 Hackathon Submission
-
-**Track**: Best x402 API Integration / Best x402 Agent Application
-
-**Requirements Met**:
-
-- ✅ Open source code
-- ✅ X402 protocol integration
-- ✅ Deployed to Solana devnet
-- ✅ Demo video (3 minutes)
-- ✅ Documentation
-
-**Key Innovation**: Trustless AI marketplace where every payment is verified on-chain, enabling autonomous AI agents to transact without intermediaries.
-
 ## 📄 License
 
 MIT License - see LICENSE file for details
@@ -292,16 +278,6 @@ This is a hackathon project. For production use, consider:
 - Enhanced provider verification
 - Multi-token support (USDC, custom tokens)
 - Advanced analytics and monitoring
-
-## 📞 Support
-
-For issues or questions:
-
-- Check [SETUP.md](./SETUP.md) for detailed setup
-- View [ARCHITECTURE.md](./ARCHITECTURE.md) for technical details
-- See [PAYMENT-TESTING-GUIDE.md](./PAYMENT-TESTING-GUIDE.md) for testing
-
----
 
 **Built with ❤️ for the Solana X402 Hackathon**
 
