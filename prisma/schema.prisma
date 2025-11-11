@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Provider {
+  id                String              @id @default(cuid())
+  name              String
+  walletAddress     String              // Multiple services can use the same wallet
+  serviceType       String              // text-generation, image-generation, etc
+  category          String              // ServiceCategory enum
+  description       String
+  pricePerRequest   Float               // in SOL
+  apiConfig         String?             // JSON string with API configuration
+  isActive          Boolean             @default(true)
+  rating            Float               @default(4.5)
+  totalRequests     Int                 @default(0)
+  successRate       Float               @default(0.95)
+  avgResponseTime   Float               @default(2.0)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  
+  inferenceRequests InferenceRequest[]
+  
+  @@map("providers")
+}
+
+model InferenceRequest {
+  id               String            @id @default(cuid())
+  userWallet       String
+  providerId       String
+  provider         Provider          @relation(fields: [providerId], references: [id])
+  input            String            // User's inference input
+  output           String?           // AI's output response
+  status           String            // pending, processing, completed, failed
+  cost             Float             // Cost in USDC
+  txSignature      String?           // Solana transaction signature
+  errorMessage     String?           // Error if inference failed
+  processingTime   Float?            // Time taken in seconds
+  createdAt        DateTime          @default(now())
+  completedAt      DateTime?
+  
+  escrowTransaction EscrowTransaction?
+  
+  @@map("inference_requests")
+  @@index([userWallet])
+  @@index([providerId])
+  @@index([status])
+}
+
+model EscrowTransaction {
+  id               String           @id @default(cuid())
+  requestId        String           @unique
+  request          InferenceRequest @relation(fields: [requestId], references: [id])
+  amount           Float            // Amount in USDC
+  status           String           // held, released, refunded
+  txSignature      String           // Original payment transaction
+  releaseTxSignature String?        // Transaction when released to provider
+  refundTxSignature  String?        // Transaction when refunded to user
+  createdAt        DateTime         @default(now())
+  releasedAt       DateTime?
+  refundedAt       DateTime?
+  
+  @@map("escrow_transactions")
+  @@index([status])
+}
